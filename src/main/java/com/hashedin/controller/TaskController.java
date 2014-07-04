@@ -17,7 +17,7 @@ public class TaskController
     @RequestMapping(method = RequestMethod.GET, value = "/tasks")
     public ModelAndView getView(@ModelAttribute("tasks") Task task)
     {
-
+    	
         return new ModelAndView("addTask");
     }
 
@@ -25,6 +25,7 @@ public class TaskController
     @RequestMapping(method = RequestMethod.POST, value = "/tasks")
     public ModelAndView add(Model model, @ModelAttribute("tasks") Task task)
     {
+    	System.out.println("hiiiiiiiiiiiiiiiiiii");
         return new ModelAndView("taskAdded", "task", task);
     }
 }

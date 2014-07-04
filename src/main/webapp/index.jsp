@@ -20,7 +20,7 @@
           <p>
             To get started, lets add couple of controllers and views to build your application.
           </p>
-        </div>        
+         </div>        
       </div>
       <div>
       </div>
