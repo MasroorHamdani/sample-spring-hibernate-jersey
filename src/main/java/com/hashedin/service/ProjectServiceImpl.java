@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.hashedin.model.Project;
+import com.hashedin.model.Task;
 import com.hashedin.repository.ProjectRepository;
 
 
@@ -15,30 +17,30 @@ public class ProjectServiceImpl implements ProjectService {
 	@Autowired
     private ProjectRepository projectRepository;
 	
-	public Project find(Long projectId)
+	public Project findParticularProject(Long projectId)
     {
         // Returns the Project for given projectId.
-        return projectRepository.find(projectId);
+        return projectRepository.findParticularProject(projectId);
     }
 
 
     @Transactional
-    public Project save(Project project)
+    public Project saveParticularProject(Project project)
     {
         // Saves the given project object and returns the same.
-    	projectRepository.save(project);
+    	projectRepository.saveParticularProject(project);
         return project;
     }
 
 
-   public List<Project> findAll()
+   public List<Project> findAllProject()
     {
         // Returns all the projects in our system.
-        return projectRepository.findAll();
+        return projectRepository.findAllProject();
     }
 
 
-    public Project update(Project project, Long projectId)
+    public Project updateParticularProject(Project project, Long projectId)
     {
         // Updates the project with the given projectId;
         return null;
@@ -46,9 +48,22 @@ public class ProjectServiceImpl implements ProjectService {
 
 
     @Transactional
-    public Project delete(Long projectId)
+    public Project deleteParticularProject(Long projectId)
     {
         // Deletes the project with the give projectId and returns the same.
-        return projectRepository.delete(projectId);
+        return projectRepository.deleteParticularProject(projectId);
     }
+
+
+	@Override
+	public List<Task> findParticularProjectTasks(Long projectId) {
+		return projectRepository.findParticularProjectTasks(projectId);
+	}
+
+
+	@Override
+	public List<Task> findParticularProjectTasksOnStatus(Long projectId,
+			String status) {
+		return projectRepository.findParticularProjectTasksOnStatus(projectId,status);
+	}
 }

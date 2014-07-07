@@ -3,12 +3,15 @@ package com.hashedin.service;
 import java.util.List;
 
 import com.hashedin.model.Project;
+import com.hashedin.model.Task;
 
 public interface ProjectService {
 
-	Project find(Long projectId);
-    List<Project> findAll();
-    Project save(Project project);
-    Project update(Project project, Long projectId);
-    Project delete(Long projectId);
+	Project findParticularProject(Long projectId);
+    List<Project> findAllProject();
+    Project saveParticularProject(Project project);
+    Project updateParticularProject(Project project, Long projectId);
+    Project deleteParticularProject(Long projectId);
+    List<Task> findParticularProjectTasks(Long projectId);
+    List<Task> findParticularProjectTasksOnStatus(Long projectId, String status);
 }

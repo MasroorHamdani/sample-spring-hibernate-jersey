@@ -1,6 +1,8 @@
 package com.hashedin.model;
 
+import java.util.List;
 import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -32,9 +34,16 @@ public class Project {
 	
 	
 	@XmlInverseReference (mappedBy="assignedProject")
-	@OneToMany(fetch=FetchType.EAGER, mappedBy ="assignedProject")
-	private Set<Task> task;
+	@OneToMany(fetch=FetchType.EAGER, mappedBy ="assignedProject", targetEntity=Task.class)
+	private List<Task> task;
 	
+	
+	public List<Task> getTask() {
+		return task;
+	}
+	public void setTask(List<Task> task) {
+		this.task = task;
+	}
 	public Long getProjectId() {
 		return projectId;
 	}
@@ -53,4 +62,11 @@ public class Project {
 	public void setProjectDesc(String projectDesc) {
 		this.projectDesc = projectDesc;
 	}
+	@Override
+	public String toString() {
+		return "Project [projectId=" + projectId + ", projectName="
+				+ projectName + ", projectDesc=" + projectDesc + ", task="
+				+ task + "]";
+	}
+	
 }

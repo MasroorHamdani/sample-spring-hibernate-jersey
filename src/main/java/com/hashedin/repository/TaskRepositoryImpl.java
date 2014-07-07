@@ -52,4 +52,13 @@ public class TaskRepositoryImpl implements TaskRepository
         return taskToBeDeleted;
     }
 
+	@Override
+	public List<Task> findTaskForParticularPerson(Long colId) {
+		TypedQuery<Task> query = em.createNamedQuery("Task.findByCollList", Task.class);
+		query.setParameter("colId", colId);
+        List<Task> results = query.getResultList();
+        return results;
+		//return em.find(Task.class, colId);
+	}
+
 }

@@ -48,6 +48,15 @@ public class TaskResource
         // Handles GET on /tasks/{taskId}. Returns a single task for the given taskId.
         return taskService.find(taskId);
     }
+    
+    @GET
+    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+    @Path("?colId={colId}")
+    public List<Task> getTaskForParticularPerson(@PathParam("colId") Long colId)
+    {
+        // Handles GET on /tasks/{taskId}. Returns a single task for the given taskId.
+        return taskService.findTaskForParticularPerson(colId);
+    }
 
     @POST
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})

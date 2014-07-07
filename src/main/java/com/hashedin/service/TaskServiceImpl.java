@@ -24,7 +24,7 @@ public class TaskServiceImpl implements TaskService
         return taskRepository.find(taskId);
     }
 
-
+    
     @Transactional
     public Task save(Task task)
     {
@@ -56,5 +56,12 @@ public class TaskServiceImpl implements TaskService
         // Deletes the task with the give taskId and returns the same.
         return taskRepository.delete(taskId);
     }
+
+
+	@Override
+	public List<Task> findTaskForParticularPerson( Long colId) {
+		
+		return taskRepository.findTaskForParticularPerson(colId);
+	}
 
 }

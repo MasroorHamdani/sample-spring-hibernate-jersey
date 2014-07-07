@@ -1,9 +1,12 @@
 package com.hashedin.model;
 
 import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -14,15 +17,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @Entity
 @Table(name = "tasks")
-@NamedQueries({ @NamedQuery(name = "Task.findAll", query = "SELECT t FROM Task t") })
+@NamedQueries({ @NamedQuery(name = "Task.findAll", query = "SELECT t FROM Task t"),
+		@NamedQuery(name = "Task.findByCollList", query = "SELECT t FROM Task t WHERE t.assignedTo.collaboratorId = :colId")
+})
 public class Task
 {
 
 	@Id
     @GeneratedValue
     private Long id;
-
-    private String title;
+	private String title;
     private String description;
     private Date createdOn;
     private Date dueDate;
@@ -30,9 +34,11 @@ public class Task
     private String status;
     
     @ManyToOne
+    @JoinColumn(name="collaboratorId",referencedColumnName="collaboratorId")
     private Collaborator assignedTo;
     
     @ManyToOne
+    @JoinColumn(name="projectId",referencedColumnName="projectId")
     private Project assignedProject;
     
     public Long getId()
@@ -49,7 +55,6 @@ public class Task
     {
         this.id = id;
     }
-
 
     public Date getCreatedOn() {
 		return createdOn;
@@ -84,7 +89,6 @@ public class Task
 		return description;
 	}
 
-
 	public void setDescription(String description) {
 		this.description = description;
 	}
@@ -108,7 +112,6 @@ public class Task
 	public String getStatus() {
 		return status;
 	}
-
 
 	public void setStatus(String status) {
 		this.status = status;

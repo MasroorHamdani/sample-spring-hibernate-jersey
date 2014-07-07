@@ -1,6 +1,6 @@
 package com.hashedin.model;
 
-import java.util.Set;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -31,8 +31,8 @@ public class Collaborator {
 	private String emailID;
 	
 	@XmlInverseReference (mappedBy="assignedTo")
-	@OneToMany(fetch=FetchType.EAGER, mappedBy ="assignedTo")
-	private Set<Task> task;
+	@OneToMany(fetch=FetchType.EAGER, mappedBy ="assignedTo", targetEntity=Task.class)
+	private List<Task> task;
 	
 	public String getEmailID() {
 		return emailID;
@@ -40,10 +40,10 @@ public class Collaborator {
 	public void setEmailID(String emailID) {
 		this.emailID = emailID;
 	}
-	public Set<Task> getTask() {
+	public List<Task> getTask() {
 		return task;
 	}
-	public void setTask(Set<Task> task) {
+	public void setTask(List<Task> task) {
 		this.task = task;
 	}
 	
