@@ -17,7 +17,6 @@ import org.eclipse.persistence.oxm.annotations.XmlInverseReference;
 @Entity
 @Table(name = "project")
 @NamedQueries({ @NamedQuery(name = "Project.findAll", query = "select p from Project p")
-
 })
 public class Project {
 

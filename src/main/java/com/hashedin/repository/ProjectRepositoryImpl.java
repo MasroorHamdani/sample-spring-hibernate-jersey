@@ -56,15 +56,21 @@ public class ProjectRepositoryImpl implements ProjectRepository {
 
 	@Override
 	public List<Task> findParticularProjectTasksOnStatus(Long projectId,
-			String status) {
+			String taskStatus) {
 		//returns tasks of  project on status of task
-		List<Task> listTask = em.find(Project.class, projectId).getTask();
+		/*List<Task> listTask = em.find(Project.class, projectId).getTask();
 		List<Task> filtered = new ArrayList<Task>();
 		for (Task task : listTask) {
-			if (task.getStatus() == status) {
+			if (task.getStatus().equals(status)) {
 				filtered.add(task);
 			}
 		}
-		return filtered;
+		return filtered;*/
+		System.out.println("\n\n\n\n Status in resource " + taskStatus);
+		TypedQuery<Task> query = em.createNamedQuery("Task.findAllByStatus",Task.class)
+				.setParameter("projId", projectId)
+				.setParameter("status", taskStatus);
+		List<Task> results = query.getResultList();
+		return results;
 	}
 }

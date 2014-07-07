@@ -13,6 +13,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -40,15 +41,21 @@ public class ProjectResource {
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	@Path("/{projectId}/task")
-	public List<Task> getParticularProjectTasks(
-			@PathParam("projectId") Long projectId) {
+	@Path("/{projectId}/tasks")
+	public List<Task> getParticularProjectTasks(@PathParam("projectId") Long projectId, 
+			@QueryParam("status") String status) 
+			{
 		// Handles GET on /projects/{projectId}/task. Returns a list of tasks
 		// for the given projectId.
-		return projectService.findParticularProjectTasks(projectId);
+		if(status.isEmpty()){
+			return projectService.findParticularProjectTasks(projectId);
+		}
+		else{
+			return projectService.findParticularProjectTasksOnStatus(projectId,
+					status);
+		}
 	}
-
-	@GET
+/*	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Path("/{projectId}/task?status={status}")
 	public List<Task> getParticularProjectTasksOnStatus(
@@ -58,7 +65,7 @@ public class ProjectResource {
 		// Returns a list of tasks for the given projectId.
 		return projectService.findParticularProjectTasksOnStatus(projectId,
 				status);
-	}
+	}*/
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })

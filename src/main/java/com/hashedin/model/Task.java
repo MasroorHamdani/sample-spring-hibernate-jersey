@@ -16,7 +16,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "tasks")
 @NamedQueries({
 		@NamedQuery(name = "Task.findAll", query = "SELECT t FROM Task t"),
-		@NamedQuery(name = "Task.findByCollList", query = "SELECT t FROM Task t WHERE t.assignedTo.collaboratorId = :colId") })
+	//	@NamedQuery(name = "Task.findByCollList", query = "SELECT t FROM Task t WHERE t.assignedTo.collaboratorId = :colId")
+		@NamedQuery(name = "Task.findAllByStatus", query = "select t from Task t where t.assignedProject.projectId=:projId  and "
+				+ "t.status = :status")		
+})
 public class Task {
 
 	@Id
