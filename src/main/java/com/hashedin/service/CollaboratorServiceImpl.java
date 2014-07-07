@@ -36,7 +36,6 @@ public class CollaboratorServiceImpl implements CollaboratorService {
     public List<Collaborator> findAllCollaborators()
     {
         // Returns all the Collaborator in our system.
-    	//System.out.println("test service");
         return collaboratorRepository.findAllCollaborators();
     }
 

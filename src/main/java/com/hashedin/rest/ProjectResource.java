@@ -26,75 +26,80 @@ import com.hashedin.service.ProjectService;
 
 @Component
 @Path("/projects")
-
 public class ProjectResource {
 	@Autowired
 	private ProjectService projectService;
-	
-	@GET
-    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public List<Project> listAllProjects()
-    {
-        // Handles GET on /projects. Lists all the projects we have in our system.
-        return projectService.findAllProject();
-    }
 
 	@GET
-    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    @Path("/{projectId}/task")
-    public List<Task> getParticularProjectTasks(@PathParam("projectId") Long projectId)
-    {
-        // Handles GET on /projects/{projectId}/task. Returns a list of tasks for the given projectId.
-        return projectService.findParticularProjectTasks(projectId);
-    }
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public List<Project> listAllProjects() {
+		// Handles GET on /projects. Lists all the projects we have in our
+		// system.
+		return projectService.findAllProject();
+	}
+
 	@GET
-    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@Path("/{projectId}/task")
+	public List<Task> getParticularProjectTasks(
+			@PathParam("projectId") Long projectId) {
+		// Handles GET on /projects/{projectId}/task. Returns a list of tasks
+		// for the given projectId.
+		return projectService.findParticularProjectTasks(projectId);
+	}
+
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Path("/{projectId}/task?status={status}")
-    public List<Task> getParticularProjectTasksOnStatus(@PathParam("projectId") Long projectId,
-    		@PathParam("status") String status)
-    {
-        // Handles GET on /projects/{projectId}/task?status={status}.
-		//Returns a list of tasks for the given projectId.
-        return projectService.findParticularProjectTasksOnStatus(projectId,status);
-    }
-	
-	
-	
-   @GET
-    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    @Path("/{projectId}")
-    public Project getParticularProject(@PathParam("projectId") Long projectId)
-    {
-        // Handles GET on /projects/{projectId}. Returns a single project for the given projectId.
-        return projectService.findParticularProject(projectId);
-    }
+	public List<Task> getParticularProjectTasksOnStatus(
+			@PathParam("projectId") Long projectId,
+			@PathParam("status") String status) {
+		// Handles GET on /projects/{projectId}/task?status={status}.
+		// Returns a list of tasks for the given projectId.
+		return projectService.findParticularProjectTasksOnStatus(projectId,
+				status);
+	}
 
-    @POST
-    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response createParticularProject(Project project, @Context final HttpServletResponse response) throws URISyntaxException
-    {
-        // Handles POST on /projects. Creates a new project and adds it into an repository.
-    	projectService.saveParticularProject(project);
-        response.setStatus(Response.Status.CREATED.getStatusCode());
-        return Response.created(new URI("/projects/" + project.getProjectId())).build();
-    }
-    
-    @PUT
-    @Path("/{projectId}")
-    @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Project updateParticularProject(Project project, @PathParam("projectId") Long projectId)
-    {
-        // Handles PUT on /projects/projectId. Updates the existing project with the new values.
-        return projectService.updateParticularProject(project, projectId);
-    }
-    
-    @DELETE
-    @Path("/{projectId}")
-    public Project deleteParticularProject(@PathParam ("projectId") Long projectId)
-    {
-        // Handles DELETE on /projects/projectId. Deletes the existing project and returns the same.
-        return projectService.deleteParticularProject(projectId);
-    }
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@Path("/{projectId}")
+	public Project getParticularProject(@PathParam("projectId") Long projectId) {
+		// Handles GET on /projects/{projectId}. Returns a single project for
+		// the given projectId.
+		return projectService.findParticularProject(projectId);
+	}
+
+	@POST
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response createParticularProject(Project project,
+			@Context final HttpServletResponse response)
+			throws URISyntaxException {
+		// Handles POST on /projects. Creates a new project and adds it into an
+		// repository.
+		projectService.saveParticularProject(project);
+		response.setStatus(Response.Status.CREATED.getStatusCode());
+		return Response.created(new URI("/projects/" + project.getProjectId()))
+				.build();
+	}
+
+	@PUT
+	@Path("/{projectId}")
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Project updateParticularProject(Project project,
+			@PathParam("projectId") Long projectId) {
+		// Handles PUT on /projects/projectId. Updates the existing project with
+		// the new values.
+		return projectService.updateParticularProject(project, projectId);
+	}
+
+	@DELETE
+	@Path("/{projectId}")
+	public Project deleteParticularProject(
+			@PathParam("projectId") Long projectId) {
+		// Handles DELETE on /projects/projectId. Deletes the existing project
+		// and returns the same.
+		return projectService.deleteParticularProject(projectId);
+	}
 }
